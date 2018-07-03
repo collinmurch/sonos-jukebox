@@ -1,9 +1,9 @@
 const request = require('request');
 const querystring = require('querystring');
-
-const token = process.env.SPOTIFY_TOKEN;
+const code = require('./token.js')
 
 var tracks = (query) => {
+    let token = code.token;
     let results = [];
 
     let encodedQuery = {
@@ -20,7 +20,6 @@ var tracks = (query) => {
     console.log(encodedQuery);
     request.get(encodedQuery, (error, response, body) => {
 
-        console.log(body);
         let artists = body['artists']['items'];
 
         for (let i=0; i < artists.length; i++) {
@@ -28,7 +27,6 @@ var tracks = (query) => {
                 results.push(artists[i]['name'])
             }
         }   
-        console.log(response)
         if (response['statusCode'] !== 200) {
             console.log('Not 200')
         }
