@@ -30,6 +30,7 @@ class Search extends Component {
 
   handleKeyPress(e) {
     let row = this.state.rowHighlighted;
+
     if (e.key === 'ArrowUp' && row > -1) {
       row--;
     }
