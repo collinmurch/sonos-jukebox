@@ -10,21 +10,24 @@ var tracks = (query) => {
         url: 'https://api.spotify.com/v1/search?'+
         querystring.stringify({
             q: query,
-            type: 'artist'
+            type: 'track'
         }),
         headers: {
             'Authorization': 'Bearer '+token
         },
         json: true
     }
-    console.log(encodedQuery);
+
     request.get(encodedQuery, (error, response, body) => {
 
-        let artists = body['artists']['items'];
+        let data = [];
+        if (body['tracks']['items']) {
+            data = body['tracks']['items'];
+        }
 
-        for (let i=0; i < artists.length; i++) {
+        for (let i=0; i < data.length; i++) {
             if (!error) {
-                results.push(artists[i]['name'])
+                results.push(data[i]['name'])
             }
         }   
         if (response['statusCode'] !== 200) {

@@ -15,7 +15,12 @@ class Search extends Component {
 
   handleUserInput(e) {
     let input = e.target.value;
-    let tracks = spotify.tracks(input.toLowerCase());
+
+
+    let tracks = []
+    if (input) {
+      tracks = spotify.tracks(input.toLowerCase());
+    }
 
     this.setState({
       userInput: input,
@@ -60,7 +65,6 @@ class Search extends Component {
             <div className='autocomplete_suggestions'>
               {
                 this.state.matches.map( (item, i) => {
-                  console.log('this');
                   let background = this.state.rowHighlighted === i ? '#ccc' : '#fff';
                   return <p key={i} className='autocomplete_suggestions_item' 
                   onClick={() => this.selectAutocomplete(i) } style={{background: background}}
