@@ -1,4 +1,4 @@
-import token from './token';
+import token from './../token';
 const request = require('request');
 const querystring = require('querystring');
 
@@ -30,12 +30,18 @@ const findTracks = async (query) => {
                 if (!error) {
                     results.push(data[i]['name'])
                 }
+
+                // Add artist name(s)
                 if (data[i]['artists']) {
                     for (let j=0; j < data[i]['artists'].length; j++) {
                         results[i] += (' -- ' + data[i]['artists'][j]['name'])
                     }
                 }
-            }
+
+                // Add album name
+                if (data[i]['album'])
+                    results[i] += ` { ${data[i]['album']['name']} }`;
+                }
 
             resolve(results);
             reject('Oof')

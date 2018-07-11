@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import findTracks from './../spotify'
+import findTracks from './../Spotify/spotify-helper';
+import Card from './../Spotify/Card';
 
 class Search extends Component {
     state = {
@@ -12,7 +13,7 @@ class Search extends Component {
 
         this.setState({input})
 
-        let results = findTracks(input).then((results) => {
+        findTracks(input).then((results) => {
             this.setState({results});
         }).catch((e) => {
             console.log(e);
@@ -20,11 +21,11 @@ class Search extends Component {
         });
     };
 
-    autocompleteHandler = (item, i) => {
+    cardHandler = (item, i) => {
         return (
-            <p key={i}>
-            {item}
-            </p>
+            <Card key={i}>
+                {item}
+            </Card>
         );
     }
 
@@ -35,8 +36,8 @@ class Search extends Component {
                 onChange={this.inputHandler} 
                 value={this.state.input}/>
 
-                <div className="autocomplete">
-                    {this.state.results.map(this.autocompleteHandler)}
+                <div className="card_results">
+                    {this.state.results.map(this.cardHandler)}
                 </div>
             </div>
         ); 
