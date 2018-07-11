@@ -24,6 +24,9 @@ const findTracks = async (query) => {
 
             let data = body['tracks']['items'] ? body['tracks']['items'] : [];
             let results = [];
+            let uris = [];
+
+            // console.log(body['tracks']['items'][0]['uri']);
 
             // Don't even try and understand this.
             for (let i=0; i < data.length; i++) {
@@ -31,20 +34,31 @@ const findTracks = async (query) => {
                     results.push(data[i]['name'])
                 }
 
-                // Add artist name(s)
+                // Append artist name(s)
                 if (data[i]['artists']) {
                     for (let j=0; j < data[i]['artists'].length; j++) {
                         results[i] += (' -- ' + data[i]['artists'][j]['name'])
                     }
+                } else {
+                    console.log("Could not find one or more artist names")
                 }
 
-                // Add album name
-                if (data[i]['album'])
+                // Append album name
+                if (data[i]['album']) {
                     results[i] += ` { ${data[i]['album']['name']} }`;
+                } else {
+                    console.log("Could not find one or more album names")
                 }
 
-            resolve(results);
-            reject('Oof')
+                // Add URIs
+                if (data[i]['uri']) {
+                    uris.push(data[i]['uri']);
+                } else {
+                    console.log("Could not find one or more URIs")
+                }
+            }
+
+            resolve({results, uris});
         });
     });
 };

@@ -1,0 +1,18 @@
+.Card {
+    position:relative;
+}
+.Card:before {
+    display:block;
+    content:" ";
+    position:absolute;
+    z-index:-1;
+    background:#bbb;
+    top:-5px;
+    bottom:-5px;
+    left:0;
+    right:0;
+    opacity:0.25;
+}
+.Card:hover:before {
+    opacity:1;
+}
