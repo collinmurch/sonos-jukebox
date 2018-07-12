@@ -6,6 +6,7 @@ class Search extends Component {
     state = {
         input: '',
         results: [],
+        images: [],
         uris: []
     }
 
@@ -17,11 +18,13 @@ class Search extends Component {
 
         findTracks(input).then((response) => {
             this.setState({results: response.results,
-                           uris:    response.uris});
+                           uris:    response.uris,
+                           images:  response.images});
         }).catch((e) => {
             console.log(e);
             this.setState({results: [],
-                           uris:    []});
+                           uris:    [],
+                           images:  []});
         });
     };
 
@@ -32,18 +35,25 @@ class Search extends Component {
     cardHandler = (item, i) => {
         return (
             <Card key={i} 
-            click={this.retrieveTrack.bind(this, i)}>
+            click={this.retrieveTrack.bind(this, i)}
+            image={this.state.images[i]}>
                 {item}
             </Card>
         );
     }
 
     render() {
+        const inputStyle = {
+            width: '50%',
+        };
+
         return (
-            <div className="search_box">
+            <div className="search_box"
+            style={{textAlign: 'center'}}>
                 <input type="text" 
                 onChange={this.inputHandler} 
-                value={this.state.input}/>
+                value={this.state.input}
+                style={inputStyle} />
 
                 <div className="card_results">
                     {this.state.results.map(this.cardHandler)}

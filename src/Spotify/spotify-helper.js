@@ -23,8 +23,10 @@ const findTracks = async (query) => {
             }
 
             let data = body['tracks']['items'] ? body['tracks']['items'] : [];
+            
             let results = [];
             let uris = [];
+            let images = [];
 
             // console.log(body['tracks']['items'][0]['uri']);
 
@@ -46,6 +48,7 @@ const findTracks = async (query) => {
                 // Append album name
                 if (data[i]['album']) {
                     results[i] += ` { ${data[i]['album']['name']} }`;
+                    images.push(data[i]['album']['images'][1]['url']);
                 } else {
                     console.log("Could not find one or more album names")
                 }
@@ -58,7 +61,7 @@ const findTracks = async (query) => {
                 }
             }
 
-            resolve({results, uris});
+            resolve({results, uris, images});
         });
     });
 };
