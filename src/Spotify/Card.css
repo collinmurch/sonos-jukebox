@@ -8,6 +8,7 @@ img {
     margin-top: 2.5px;
     clear:both;
 }
+
 p {
     font-family: Trebuchet MS, Lucida Grande, 
                  Lucida Sans Unicode, Lucida Sans, 
@@ -26,6 +27,7 @@ p {
     box-shadow: 0 2px 3px #ccc;
     text-align: center;
 }
+
 .Card:before {
     display:block;
     content:" ";
@@ -38,6 +40,7 @@ p {
     right:0;
     opacity:0.25;
 }
+
 .Card:hover:before {
     opacity:1;
     bottom: 0px;

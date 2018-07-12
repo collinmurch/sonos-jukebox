@@ -45,7 +45,7 @@ const findTracks = async (query) => {
                     console.log("Could not find one or more artist names")
                 }
 
-                // Append album name
+                // Append album name and artwork
                 if (data[i]['album']) {
                     results[i] += ` { ${data[i]['album']['name']} }`;
                     images.push(data[i]['album']['images'][1]['url']);
