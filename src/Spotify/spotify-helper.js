@@ -8,7 +8,8 @@ const findTracks = async (query) => {
             url: 'https://api.spotify.com/v1/search?'+
             querystring.stringify({
                 q: query,
-                type: 'track'
+                type: 'track',
+                limit: 15
             }),
             headers: {
                 'Authorization': 'Bearer '+token
@@ -28,9 +29,6 @@ const findTracks = async (query) => {
             let uris = [];
             let images = [];
 
-            // console.log(body['tracks']['items'][0]['uri']);
-
-            // Don't even try and understand this.
             for (let i=0; i < data.length; i++) {
                 if (!error) {
                     results.push(data[i]['name'])

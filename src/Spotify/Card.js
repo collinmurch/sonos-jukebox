@@ -5,7 +5,8 @@ const card = (props) => {
     return (
         <div className="Card"
         onClick={props.click}>
-            <img src={props.image} alt={props.children} />
+            <img src={props.image} 
+            alt={props.children} />
             <p className="card_item">
                 {props.children}
             </p>
