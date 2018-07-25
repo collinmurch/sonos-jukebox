@@ -1,4 +1,4 @@
-import token from './../token';
+import secrets from './../secret';
 const request = require('request');
 const querystring = require('querystring');
 
@@ -12,7 +12,7 @@ const findTracks = async (query) => {
                 limit: 15
             }),
             headers: {
-                'Authorization': 'Bearer '+token
+                'Authorization': 'Bearer ' + secrets.token
             },
             json: true
         }

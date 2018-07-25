@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import findTracks from './../Spotify/spotify-helper';
+import sendTracks from './../Sonos/sonos-helper'
 import Card from './../Spotify/Card';
 
 class Search extends Component {
     state = {
-        input: '',
+        input: "",
         contents: [],
         images: [],
         uris: [],
@@ -45,8 +46,6 @@ class Search extends Component {
 
             this.setState({selected});
         }
-
-        console.log(this.state.uris[i]);
     }
 
     removeCard = (i) => {
@@ -81,6 +80,15 @@ class Search extends Component {
         );
     }
 
+    goHandler = () => {
+        // console.log(
+        //     this.state.selected.uris.map((item) => {
+        //     return item;
+        // }));
+
+        sendTracks(this.state.selected.uris.map((item) => {return item;}));
+    }
+
     render() {
         const inputStyle = {
             width: '50%',
@@ -97,6 +105,10 @@ class Search extends Component {
                     onChange={this.inputHandler} 
                     value={this.state.input}
                     style={inputStyle} />
+
+                    <button type="button"
+                    onClick={this.goHandler}>
+                    Go</button>
 
                     <div className="card_results">
                         {this.state.contents.map(this.cardHandler)}
