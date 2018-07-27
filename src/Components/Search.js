@@ -92,6 +92,7 @@ class Search extends Component {
     render() {
         const inputStyle = {
             width: '50%',
+            background: 'Green'
         };
 
         return (
