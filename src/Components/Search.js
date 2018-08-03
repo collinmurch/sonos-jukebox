@@ -92,9 +92,14 @@ class Search extends Component {
     render() {
         const inputStyle = {
             width: '50%',
-            background: 'Green',
+            background: 'Pink',
             border: 'Black'
         };
+
+        const buttonStyle = {
+            background: 'Pink',
+            size: '150%'
+        }
 
         return (
             <div className="search_component">
@@ -109,6 +114,7 @@ class Search extends Component {
                     style={inputStyle} />
 
                     <button type="button"
+                    style={buttonStyle}
                     onClick={this.goHandler}>
                     Go</button>
 
