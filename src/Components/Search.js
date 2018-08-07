@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import findTracks from './../Spotify/spotify-helper';
 import sendTracks from './../Sonos/sonos-helper'
+import secrets from './../secret';
 import Card from './../Spotify/Card';
 
+const tokenURI = 'http://localhost:8080/login'
+
 class Search extends Component {
+
     state = {
         input: "",
         contents: [],
@@ -16,6 +20,15 @@ class Search extends Component {
         }   
     }
 
+    // Check query params as soon as page loads
+    componentDidMount() {
+        const params = window.location.search.substring(1)
+                        .split('&')
+                        .filter((item) => { return item.length > 0 });
+
+        if (params.length > 0) this.tokenHandler(params);
+    }
+
     inputHandler = (e) => {
         let input = e.target.value;
 
@@ -24,8 +37,8 @@ class Search extends Component {
 
         findTracks(input).then((response) => {
             this.setState({contents: response.results,
-                           uris:    response.uris,
-                           images:  response.images});
+                           uris:     response.uris,
+                           images:   response.images});
         }).catch((e) => {
             console.log(e);
             this.setState({contents: [],
@@ -81,12 +94,21 @@ class Search extends Component {
     }
 
     goHandler = () => {
-        // console.log(
-        //     this.state.selected.uris.map((item) => {
-        //     return item;
-        // }));
-
         sendTracks(this.state.selected.uris.map((item) => {return item;}));
+    }
+
+    redirectHandler = () => {
+        window.location.assign(tokenURI);
+    }
+
+    tokenHandler = (params) => {
+        let token = params.find((e) => {
+            return e.startsWith('access_token=')
+        }).replace('access_token=', '');
+
+        secrets.updateToken(token);
+
+        console.log('New token applied: ' + secrets.getToken());
     }
 
     render() {
@@ -117,6 +139,11 @@ class Search extends Component {
                     style={buttonStyle}
                     onClick={this.goHandler}>
                     Go</button>
+
+                    <button type="button"
+                    style={buttonStyle}
+                    onClick={this.redirectHandler}>
+                    Refresh Token</button>
 
                     <div className="card_results">
                         {this.state.contents.map(this.cardHandler)}

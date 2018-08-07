@@ -12,7 +12,7 @@ const findTracks = async (query) => {
                 limit: 15
             }),
             headers: {
-                'Authorization': 'Bearer ' + secrets.token
+                'Authorization': 'Bearer ' + secrets.getToken()
             },
             json: true
         }
