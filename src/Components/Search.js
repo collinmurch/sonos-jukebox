@@ -3,6 +3,7 @@ import findTracks from './../Spotify/spotify-helper';
 import sendTracks from './../Sonos/sonos-helper'
 import secrets from './../secret';
 import Card from './../Spotify/Card';
+import './Search.css'
 
 const tokenURI = 'http://localhost:8080/login'
 
@@ -112,17 +113,6 @@ class Search extends Component {
     }
 
     render() {
-        const inputStyle = {
-            width: '50%',
-            background: 'Pink',
-            border: 'Black'
-        };
-
-        const buttonStyle = {
-            background: 'Pink',
-            size: '150%'
-        }
-
         return (
             <div className="search_component">
                 <div className="selected_items">
@@ -131,17 +121,17 @@ class Search extends Component {
                 <div className="search_box"
                 style={{textAlign: 'center'}}>
                     <input type="text" 
+                    className="search"
                     onChange={this.inputHandler} 
-                    value={this.state.input}
-                    style={inputStyle} />
+                    value={this.state.input} />
 
                     <button type="button"
-                    style={buttonStyle}
+                    className="button"
                     onClick={this.goHandler}>
                     Go</button>
 
                     <button type="button"
-                    style={buttonStyle}
+                    className="button"
                     onClick={this.redirectHandler}>
                     Refresh Token</button>
 
