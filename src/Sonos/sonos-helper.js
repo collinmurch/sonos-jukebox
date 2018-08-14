@@ -4,15 +4,15 @@ const request = require('request');
 const playEndpoint = "/kitchen/spotify/now/"
 const queueEndpoint = "/kitchen/spotify/now/";
 
-const sendTracks = (songs) => {
+const sendTracks = (selected) => {
     const uri = "http://" + secrets.ip;
 
-    request.get(uri + playEndpoint + songs[0], (error, response, body) => {
+    request.get(uri + playEndpoint + selected[0].uri, (error, response, body) => {
         console.log(body);
     });
 
-    for (let i=0; i<songs.length-1; i++) {
-        request.get(uri + queueEndpoint + songs[i+1], (error, response, body) => {
+    for (let i=0; i<selected.length-1; i++) {
+        request.get(uri + queueEndpoint + selected[i+1].uri, (error, response, body) => {
             console.log(body);
         });
     }

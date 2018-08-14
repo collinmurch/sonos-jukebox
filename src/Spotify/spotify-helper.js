@@ -24,42 +24,25 @@ const findTracks = async (query) => {
             }
 
             let data = body['tracks']['items'] ? body['tracks']['items'] : [];
-            
-            let results = [];
-            let uris = [];
-            let images = [];
+            let contents = [];
 
-            for (let i=0; i < data.length; i++) {
-                if (!error) {
-                    results.push(data[i]['name'])
+            for (let i=0; i<data.length; i++) {
+                // Because sometimes there are multiple artists
+                let artists = '';
+                for (let j=0; j < data[i]['artists'].length; j++) {
+                    artists += data[i]['artists'][j]['name'] + ', ';
                 }
-
-                // Append artist name(s)
-                if (data[i]['artists']) {
-                    for (let j=0; j < data[i]['artists'].length; j++) {
-                        results[i] += (' -- ' + data[i]['artists'][j]['name'])
-                    }
-                } else {
-                    console.log("Could not find one or more artist names")
-                }
-
-                // Append album name and artwork
-                if (data[i]['album']) {
-                    results[i] += ` { ${data[i]['album']['name']} }`;
-                    images.push(data[i]['album']['images'][1]['url']);
-                } else {
-                    console.log("Could not find one or more album names")
-                }
-
-                // Add URIs
-                if (data[i]['uri']) {
-                    uris.push(data[i]['uri']);
-                } else {
-                    console.log("Could not find one or more URIs")
-                }
+                
+                contents.push({
+                    song:   data[i]['name'],
+                    artist: artists,
+                    album:  data[i]['album']['name'],
+                    image:  data[i]['album']['images'][1]['url'],
+                    uri:    data[i]['uri']
+                });
             }
 
-            resolve({results, uris, images});
+            resolve(contents);
         });
     });
 };

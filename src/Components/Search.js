@@ -5,20 +5,15 @@ import secrets from './../secret';
 import Card from './../Spotify/Card';
 import './Search.css'
 
+// This is temporary -- fix later
 const tokenURI = 'http://localhost:8080/login'
 
 class Search extends Component {
 
     state = {
-        input: "",
-        contents: [],
-        images: [],
-        uris: [],
-        selected: {
-            contents: [],
-            images: [],
-            uris: []
-        }   
+        input: '',
+        contents: [], // -- Becomes array of dictionaries (properties for each song)
+        selected: []  // -- Becomes array of dictionaries (properties for each song)
     }
 
     // Check query params as soon as page loads
@@ -34,29 +29,22 @@ class Search extends Component {
         let input = e.target.value;
 
         // Must set input state before everything else, otherwise lag
-        this.setState({input})
+        this.setState({input});
 
         findTracks(input).then((response) => {
-            this.setState({contents: response.results,
-                           uris:     response.uris,
-                           images:   response.images});
+            this.setState({contents: response});
         }).catch((e) => {
             console.log(e);
-            this.setState({contents: [],
-                           uris:    [],
-                           images:  []});
+            this.setState({contents: []});
         });
     };
 
     cardClick = (i) => {
-
         // I know this is a lazy way to do things
         let selected = this.state.selected;
 
-        if (selected.contents.length < 3) {
-            selected.contents.push(this.state.contents[i]);
-            selected.images.push(this.state.images[i]);
-            selected.uris.push(this.state.uris[i]);
+        if (selected.length < 3) {
+            selected.push(this.state.contents[i]);
 
             this.setState({selected});
         }
@@ -67,9 +55,7 @@ class Search extends Component {
 
         let bounds = i > 0 ? i : 1
 
-        selected.contents.splice(i, bounds);
-        selected.images.splice(i, bounds);
-        selected.uris.splice(i, bounds);
+        selected.splice(i, bounds);
         
         this.setState({selected});
     }
@@ -78,8 +64,8 @@ class Search extends Component {
         return (
             <Card key={i} 
             click={this.cardClick.bind(this, i)}
-            image={this.state.images[i]}>
-                {item}
+            image={item.image}>
+                {item.song}
             </Card>
         );
     }
@@ -87,15 +73,15 @@ class Search extends Component {
     selectedCardHandler = (item, i) => {
         return (
             <Card key={"selected"+i} 
-            image={this.state.selected.images[i]}
+            image={item.image}
             click={this.removeCard.bind(this, i)}>
-                {item}
+                {item.song}
             </Card>
         );
     }
 
     goHandler = () => {
-        sendTracks(this.state.selected.uris.map((item) => {return item;}));
+        sendTracks(this.state.selected.map((item) => {return item;}));
     }
 
     redirectHandler = () => {
@@ -116,7 +102,7 @@ class Search extends Component {
         return (
             <div className="search_component">
                 <div className="selected_items">
-                    {this.state.selected.contents.map(this.selectedCardHandler)}
+                    {this.state.selected.map(this.selectedCardHandler)}
                 </div>
                 <div className="search_box"
                 style={{textAlign: 'center'}}>
