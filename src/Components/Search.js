@@ -31,12 +31,19 @@ class Search extends Component {
         // Must set input state before everything else, otherwise lag
         this.setState({input});
 
-        findTracks(input).then((response) => {
-            this.setState({contents: response});
-        }).catch((e) => {
-            console.log(e);
+        if (input !== '') {
+            findTracks(input).then((response) => {
+                this.setState({contents: response});
+            }).catch((error) => {
+                console.log(error);
+                this.setState({contents: []});
+
+                // Attempt to grab token (most likely the cause of error)
+                this.redirectHandler();
+            });
+        } else {
             this.setState({contents: []});
-        });
+        }
     };
 
     cardClick = (i) => {
@@ -53,7 +60,7 @@ class Search extends Component {
     removeCard = (i) => {
         let selected = this.state.selected;
 
-        let bounds = i > 0 ? i : 1
+        let bounds = i > 0 ? i : 1;
 
         selected.splice(i, bounds);
         
@@ -65,7 +72,7 @@ class Search extends Component {
             <Card key={i} 
             click={this.cardClick.bind(this, i)}
             image={item.image}>
-                {item.song}
+                {item}
             </Card>
         );
     }
@@ -75,13 +82,13 @@ class Search extends Component {
             <Card key={"selected"+i} 
             image={item.image}
             click={this.removeCard.bind(this, i)}>
-                {item.song}
+                {item}
             </Card>
         );
     }
 
     goHandler = () => {
-        sendTracks(this.state.selected.map((item) => {return item;}));
+        sendTracks(this.state.selected.map((item) => {return item}));
     }
 
     redirectHandler = () => {
@@ -95,7 +102,7 @@ class Search extends Component {
 
         secrets.updateToken(token);
 
-        console.log('New token applied: ' + secrets.getToken());
+        console.log('Using new token: ' + secrets.getToken());
     }
 
     render() {
@@ -119,7 +126,7 @@ class Search extends Component {
                     <button type="button"
                     className="button"
                     onClick={this.redirectHandler}>
-                    Refresh Token</button>
+                    Request Token</button>
 
                     <div className="card_results">
                         {this.state.contents.map(this.cardHandler)}

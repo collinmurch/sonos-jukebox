@@ -32,6 +32,7 @@ const findTracks = async (query) => {
                 for (let j=0; j < data[i]['artists'].length; j++) {
                     artists += data[i]['artists'][j]['name'] + ', ';
                 }
+                artists = artists.substring(0, artists.length-2); // Remove excess , and space
                 
                 contents.push({
                     song:   data[i]['name'],

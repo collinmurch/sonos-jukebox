@@ -8,7 +8,9 @@ const card = (props) => {
             <img src={props.image} 
             alt={props.children} />
             <p className="card_item">
-                {props.children}
+                {props.children.song   + ' -- ' + 
+                 props.children.artist + ' -- ' +
+                 props.children.album}
             </p>
         </div>
     );
