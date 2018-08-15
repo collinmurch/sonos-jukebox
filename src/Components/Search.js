@@ -47,7 +47,6 @@ class Search extends Component {
     };
 
     cardClick = (i) => {
-        // I know this is a lazy way to do things
         let selected = this.state.selected;
 
         if (selected.length < 3) {
