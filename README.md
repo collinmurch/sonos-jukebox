@@ -14,7 +14,7 @@ Honestly this project is going to go through major changes in the weeks to come,
 P.S. -- this README is horrible, but is a placeholder. I'll fix it later.
 
 
-secret.js file stuffs:
+**secret.js file stuffs:**
 
 let token = '';
 
