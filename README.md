@@ -18,14 +18,10 @@ P.S. -- this README is horrible, but is a placeholder. I'll fix it later.
 
 let token = '';
 
-const updateToken = (newToken) => {
-    token = newToken;
-}
+const updateToken = (newToken) => { token = newToken }
 
-const getToken = () => {
-    return token;
-}
+const getToken = () => { return token }
 
 const ip = 'localhost:5005';
 
-export default {getToken, updateToken, ip};
+export default { getToken, updateToken, ip };
