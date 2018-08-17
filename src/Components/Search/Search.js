@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import findTracks from './../Spotify/spotify-helper';
-import sendTracks from './../Sonos/sonos-helper'
-import secrets from './../secret';
-import Card from './../Spotify/Card';
+import Nav from '../Nav/Nav';
+import Card from './Card';
 import './Search.css'
+
+import findTracks from '../../Spotify/spotify-helper';
+import sendTracks from '../../Sonos/sonos-helper'
+import secrets from '../../secret';
 
 // This is temporary -- fix later
 const tokenURI = 'http://localhost:8080/login'
@@ -107,6 +109,8 @@ class Search extends Component {
     render() {
         return (
             <div className="search_component">
+                <Nav />
+
                 <div className="selected_items">
                     {this.state.selected.map(this.selectedCardHandler)}
                 </div>
