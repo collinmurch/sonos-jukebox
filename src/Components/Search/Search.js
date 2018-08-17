@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Nav from '../Nav/Nav';
 import Card from './Card';
 import './Search.css'
 
@@ -109,8 +108,6 @@ class Search extends Component {
     render() {
         return (
             <div className="search_component">
-                <Nav />
-
                 <div className="selected_items">
                     {this.state.selected.map(this.selectedCardHandler)}
                 </div>

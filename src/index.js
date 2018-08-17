@@ -1,8 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import { BrowserRouter } from 'react-router-dom';
+ 
 import './index.css';
-import Search from './Components/Search/Search'
+import Nav from './Components/Nav/Nav'
+
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Search />, document.getElementById('root'));
+const Navigation = () => {
+    return(
+        <BrowserRouter>
+            <Nav />
+        </BrowserRouter>
+    );
+}
+
+ReactDOM.render(<Navigation />, document.getElementById('root'));
 registerServiceWorker();
