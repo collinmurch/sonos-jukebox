@@ -1,4 +1,4 @@
-This project is under heavy work, but if you want to work on it, then do the following:
+This project is under heavy work, but if you want to help contribute, then do the following:
 
 1. git clone the repo
 2. make a file called "secret.js" in the ./src directory, and add what I have at the bottom of this README to the file
