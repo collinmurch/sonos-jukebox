@@ -3,20 +3,20 @@ const request = require('request');
 const querystring = require('querystring');
 
 const findTracks = async (query) => {
-    return new Promise((resolve, reject) => {
-        let encodedQuery = {
-            url: 'https://api.spotify.com/v1/search?'+
-            querystring.stringify({
-                q: query,
-                type: 'track',
-                limit: 15
-            }),
-            headers: {
-                'Authorization': 'Bearer ' + secrets.getToken()
-            },
-            json: true
-        }
+    const encodedQuery = {
+        url: 'https://api.spotify.com/v1/search?'+
+        querystring.stringify({
+            q: query,
+            type: 'track',
+            limit: 15
+        }),
+        headers: {
+            'Authorization': 'Bearer ' + secrets.getToken()
+        },
+        json: true
+    }
 
+    return new Promise((resolve, reject) => {
         request.get(encodedQuery, (error, response, body) => {
             if (response['statusCode'] !== 200) {
                 reject('Invalid/No results');

@@ -3,7 +3,8 @@ import { Route } from 'react-router-dom';
 
 import './Nav.css';
 
-import Search from './../Search/Search'
+import Search from './../Search/Search';
+import Home from './../Home/Home';
 
 class Nav extends Component {
 
@@ -21,7 +22,7 @@ class Nav extends Component {
                     </header>
                 </div>
 
-                <Route path="/" exact component={() => <h1>To Do...</h1>} />
+                <Route path="/" exact component={Home} />
                 <Route path="/search" exact component={Search} />
             </div>
         );

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Card from './Card';
 import './Search.css'
 
-import findTracks from '../../Spotify/spotify-helper';
-import sendTracks from '../../Sonos/sonos-helper'
-import secrets from '../../secret';
+import findTracks from './../../Spotify/spotify-helper';
+import sonos from './../../Sonos/sonos-helper';
+import secrets from './../../secret';
 
 // This is temporary -- fix later
 const tokenURI = 'http://localhost:8080/login'
@@ -45,7 +45,7 @@ class Search extends Component {
         } else {
             this.setState({contents: []});
         }
-    };
+    }
 
     cardClick = (i) => {
         let selected = this.state.selected;
@@ -88,7 +88,7 @@ class Search extends Component {
     }
 
     goHandler = () => {
-        sendTracks(this.state.selected.map((item) => {return item}));
+        sonos.sendTracks(this.state.selected.map((item) => {return item}));
     }
 
     redirectHandler = () => {
