@@ -3,7 +3,7 @@ const path = require('path');
 const request = require('request');
 const querystring = require('querystring');
 
-let port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 let app = express();
 
 let redirect_uri = 
