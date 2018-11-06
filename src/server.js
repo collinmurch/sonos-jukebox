@@ -3,14 +3,14 @@ const path = require('path');
 const request = require('request');
 const querystring = require('querystring');
 
+let port = process.env.PORT || 8080;
 let app = express();
-app.use(express.static(path.join(__dirname, 'build')));
 
 let redirect_uri = 
   process.env.REDIRECT_URI || 
   'http://localhost:8080/callback'
 
-app.get('/login', function(req, res) {
+app.get('/login', (req, res) => {
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -20,7 +20,7 @@ app.get('/login', function(req, res) {
     }))
 });
 
-app.get('/callback', function(req, res) {
+app.get('/callback', (req, res) => {
   let code = req.query.code || null
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
@@ -36,13 +36,14 @@ app.get('/callback', function(req, res) {
     },
     json: true
   }
-  request.post(authOptions, function(error, response, body) {
+
+  request.post(authOptions, (error, response, body) => {
     let access_token = body.access_token;
     let uri = process.env.FRONTEND_URI || 'http://localhost:3000/search';
     res.redirect(uri + '?access_token=' + access_token);
   })
 });
 
-let port = process.env.PORT || 8080;
-console.log(`Listening on port ${port}.`);
-app.listen(port);
+app.listen(port, () => {
+  console.log(`Listening on port ${port}.`);
+});
