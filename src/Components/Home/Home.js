@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import sonos from './../../Sonos/sonos-helper';
+import './Home.css';
 
 class Home extends Component {
     state = {
@@ -13,7 +14,7 @@ class Home extends Component {
             
             this.setState({imageURI: state['currentTrack']['albumArtUri']});
         }).catch((error) => {
-            console.log("getState failed.")
+            console.log(error)
         });
     }
 
@@ -25,7 +26,8 @@ class Home extends Component {
         return (
             <div className="Home">
                 <img src={this.state.imageURI} 
-                    alt="artwork"/>
+                    alt='album artwork'
+                    class="artwork"/>
             </div>
         );
     }
