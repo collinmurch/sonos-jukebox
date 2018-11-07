@@ -24,10 +24,12 @@ class Home extends Component {
 
     render () {
         return (
-            <div className="Home">
-                <img src={this.state.imageURI} 
-                    alt='album artwork'
-                    class="artwork"/>
+            <div className="home_component">
+                <div className="current_song">
+                    <img src={this.state.imageURI} 
+                        alt='album artwork'
+                        class="artwork"/>
+                </div>
             </div>
         );
     }

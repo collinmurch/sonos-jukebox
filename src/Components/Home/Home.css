@@ -1,5 +1,13 @@
+
+.current_song {
+    height: 50vw;
+    width: 100vw;
+}
+
 .artwork {
+    display: block;
     margin: auto;
-    height: 50%;
+    margin-right: 50vw;
+    height: 25%;
     width: auto;
 }
