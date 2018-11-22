@@ -5,14 +5,17 @@ import './Home.css';
 
 class Home extends Component {
     state = {
+        track: '',
         imageURI: ''
     }
 
     componentDidMount() {
         sonos.getState().then((response) => {
             const state = JSON.parse(response);
-            
-            this.setState({imageURI: state['currentTrack']['albumArtUri']});
+            console.log(state);
+
+            this.setState({imageURI: state['currentTrack']['absoluteAlbumArtUri'],
+                           track:    state['currentTrack']['title']});
         }).catch((error) => {
             console.log(error)
         });
@@ -26,9 +29,10 @@ class Home extends Component {
         return (
             <div className="home_component">
                 <div className="current_song">
+                    <p>{this.state.track}</p>
                     <img src={this.state.imageURI} 
-                        alt='album artwork'
-                        class="artwork"/>
+                        alt={this.state.track}
+                        className="artwork"/>
                 </div>
             </div>
         );
