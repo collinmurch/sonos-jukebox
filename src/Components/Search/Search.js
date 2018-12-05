@@ -95,6 +95,7 @@ class Search extends Component {
         window.location.assign(tokenURI);
     }
 
+    // Incredbily insecure. Fix needed.
     tokenHandler = (params) => {
         let token = params.find((e) => {
             return e.startsWith('access_token=')
