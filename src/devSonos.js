@@ -14,7 +14,7 @@ app.get('/kitchen/state', (req, res) => {
         res.setHeader('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
     }
 
-    res.send('{"currentTrack":{"albumArtUri": "https://proxy.duckduckgo.com/iur/?f=1&image_host=http%3A%2F%2Fwww.clubdancemixes.com%2Fwp-content%2Fuploads%2F2017%2F03%2FElla-Vos-White-Noise-R3hab-Remix.jpg&u=https://clubdancemixes.com/wp-content/uploads/2017/03/Ella-Vos-White-Noise-R3hab-Remix.jpg"}}');
+    res.send('{"currentTrack":{"absoluteAlbumArtUri": "https://proxy.duckduckgo.com/iur/?f=1&image_host=http%3A%2F%2Fwww.clubdancemixes.com%2Fwp-content%2Fuploads%2F2017%2F03%2FElla-Vos-White-Noise-R3hab-Remix.jpg&u=https://clubdancemixes.com/wp-content/uploads/2017/03/Ella-Vos-White-Noise-R3hab-Remix.jpg"}}');
 });
 
 app.listen(port, () => {

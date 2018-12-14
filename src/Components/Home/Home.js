@@ -6,10 +6,14 @@ import './Home.css';
 class Home extends Component {
     state = {
         track: '',
-        imageURI: ''
+        imageURI: '',
+        test: ''
     }
 
     componentDidMount() {
+        fetch('/users')
+            .then(res => console.log(res));
+
         sonos.getState().then((response) => {
             const state = JSON.parse(response);
             console.log(state);
@@ -29,6 +33,7 @@ class Home extends Component {
         return (
             <div className="home_component">
                 <div className="current_song">
+                    <p>{this.state.test}</p>
                     <p>{this.state.track}</p>
                     <img src={this.state.imageURI} 
                         alt={this.state.track}

@@ -6,9 +6,19 @@ const querystring = require('querystring');
 const port = process.env.PORT || 8080;
 let app = express();
 
-let redirect_uri = 
+const redirect_uri = 
   process.env.REDIRECT_URI || 
   'http://localhost:8080/callback'
+
+app.get('/users', (req, res) => {
+  res.json([{
+  	id: 1,
+  	username: "samsepi0l"
+  }, {
+  	id: 2,
+  	username: "D0loresH4ze"
+  }]);
+});
 
 app.get('/login', (req, res) => {
   res.redirect('https://accounts.spotify.com/authorize?' +
